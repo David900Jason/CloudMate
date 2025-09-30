@@ -1,9 +1,5 @@
 import Navbar from "@/components/layout/Navbar";
-import {
-    getWeatherByCity,
-    getWeatherIcon,
-    getWeatherForecast,
-} from "@/lib/weather";
+import { getWeatherByCity } from "@/lib/weather";
 import { MapPin } from "lucide-react";
 import Image from "next/image";
 
