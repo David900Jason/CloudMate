@@ -4,7 +4,7 @@ import {
     getWeatherIcon,
     getWeatherForecast,
 } from "@/lib/weather";
-import { LocateFixed, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
 import Image from "next/image";
 
 const days = [
@@ -19,8 +19,8 @@ const days = [
 
 export default async function Home() {
     const weatherData = await getWeatherByCity("Cairo");
-    const weatherIcon = getWeatherIcon(weatherData.weather[0].icon);
-    const weatherForecast = await getWeatherForecast("Cairo");
+    // const weatherIcon = getWeatherIcon(weatherData.weather[0].icon);
+    // const weatherForecast = await getWeatherForecast("Cairo");
 
     // console.log(weatherForecast);
 
