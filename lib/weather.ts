@@ -1,14 +1,32 @@
-import axios from "axios";
+// helpers/weather.js
+import api from "./api";
 
-const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
-const BASE_URL = "https://api.openweathermap.org/data/2.5/";
+export const getWeatherByCity = async (city: string) => {
+    try {
+        const response = await api.get("/weather", {
+            params: { q: city },
+        });
+        const data = response.data;
+        return data;
+    } catch (error) {
+        console.error("Weather fetch failed:", error);
+        throw error;
+    }
+};
 
-const api = axios.create({
-    baseURL: BASE_URL,
-    params: {
-        appid: API_KEY,
-        units: "metric",
-    },
-});
+export const getWeatherForecast = async (city: string) => {
+    try {
+        const response = await api.get("/forecast", {
+            params: { q: city },
+        });
+        const data = response.data;
+        return data;
+    } catch (error) {
+        console.error("Weather fetch failed:", error);
+        throw error;
+    }
+};
 
-export default api;
+export const getWeatherIcon = (iconCode: string): string => {
+    return `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+};

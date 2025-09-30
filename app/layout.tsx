@@ -1,18 +1,17 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
+const poppins = Poppins({
+    variable: "--font-poppins",
     subsets: ["latin"],
-    variable: "--font-inter",
-    display: "swap",
-    weight: ["400", "500", "600", "700", "800", "900"],
+    weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
-    title: "CloudMate - A weather app",
+    title: "SkyCast - Your weather, your way",
     description:
-        "A simple weather app that gives you real time forecasts and conditions for any city worldwide",
+        "A weather app built with Next.js and Tailwind CSS to make your life easier",
 };
 
 export default function RootLayout({
@@ -23,8 +22,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body
-                className={`antialiased ${inter.className}`}
-                suppressHydrationWarning={true}
+                className={`${poppins.variable} antialiased`}
             >
                 {children}
             </body>

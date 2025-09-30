@@ -76,6 +76,11 @@
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
+
+    --background: oklch(0.1563 0.0318 263.97); /* deep navy/black */
+
+    --primary: oklch(0.98 0 0); /* white */
+    --secondary: oklch(0.72 0.02 260); /* gray text */
 }
 
 .dark {
@@ -112,21 +117,21 @@
     --sidebar-ring: oklch(0.556 0 0);
 }
 
-@theme {
-  --color-background: #0B0F15;      /* app background */
-  --color-background-card: #1A1F29; /* card background */
+@theme inline {
+    --color-surface: oklch(0.1922 0.0281 264.89); /* dark surface */
+    --color-surface-light: oklch(0.2162 0.0395 265.87); /* lighter surface */
 
-  --color-primary: #FFFFFF;    /* main text */
-  --color-secondary: #9CA3AF;  /* muted text */
+    --color-text-primary: oklch(0.98 0 0); /* white */
+    --color-text-secondary: oklch(0.72 0.02 260); /* gray text */
 
-  --color-accent-blue: #3B82F6;     /* electric blue */
-  --color-accent-cyan: #06B6D4;     /* cyan */
-  --color-accent-purple: #8B5CF6;   /* violet purple */
-  --color-accent-indigo: #6366F1;   /* indigo */
+    --color-accent-purple: oklch(0.62 0.25 300); /* purple */
+    --color-accent-blue: oklch(0.58 0.25 250); /* blue */
+    --color-accent-yellow: oklch(0.88 0.18 95); /* yellow */
+    --color-accent-red: oklch(0.72 0.2 30); /* red */
 
-  --color-highlight-yellow: #FACC15; /* UV index */
-  --color-highlight-orange: #F97316; /* sunrise/sunset */
-  --color-highlight-aqua: #22D3EE;   /* rain chance */
+    --color-weather-sun: oklch(0.88 0.18 95); /* bright sun */
+    --color-weather-cloud: oklch(0.72 0.02 260); /* cloud gray */
+    --color-weather-rain: oklch(0.62 0.22 230); /* rain blue */
 }
 
 @layer base {
@@ -134,6 +139,6 @@
         @apply border-border outline-ring/50;
     }
     body {
-        @apply bg-background text-foreground;
+        @apply bg-background text-primary;
     }
 }
