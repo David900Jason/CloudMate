@@ -1,5 +1,10 @@
 import Navbar from "@/components/layout/Navbar";
-import { getWeatherByCity } from "@/lib/weather";
+import Sidebar from "@/components/layout/Sidebar";
+import {
+    getWeatherByCity,
+    getWeatherIcon,
+    getWeatherForecast,
+} from "@/lib/weather";
 import { MapPin } from "lucide-react";
 import Image from "next/image";
 
@@ -15,10 +20,17 @@ const days = [
 
 export default async function Home() {
     const weatherData = await getWeatherByCity("Cairo");
-    // const weatherIcon = getWeatherIcon(weatherData.weather[0].icon);
-    // const weatherForecast = await getWeatherForecast("Cairo");
+    const weatherIcon = getWeatherIcon(weatherData.weather[0].icon);
+    const weatherForecast = await getWeatherForecast("Cairo");
 
-    // console.log(weatherForecast);
+    const otherCitiesData = await Promise.all([
+        getWeatherByCity("New York"),
+        getWeatherByCity("London"),
+        getWeatherByCity("Tokyo"),
+        getWeatherByCity("Sydney"),
+    ]);
+
+    console.log(otherCitiesData);
 
     const day = days[new Date(weatherData.dt * 1000).getDay()];
 
@@ -33,77 +45,171 @@ export default async function Home() {
     }
 
     return (
-        <div className="p-4 grid gap-4">
-            {/* Search Bar */}
-            <header className="bg-background">
-                <Navbar />
-            </header>
+        <div className="flex gap-6">
+            <Sidebar />
+            <div className="p-4 grid gap-4 flex-1">
+                {/* Search Bar */}
+                <header className="bg-background">
+                    <Navbar />
+                </header>
 
-            <main className="grid grid-rows-2 gap-6">
-                <section className="grid grid-cols-2 gap-6">
-                    {/* Main Widget */}
-                    <div className="bg-surface rounded-2xl p-6 flex justify-between">
-                        <div className="space-y-6">
-                            <div>
-                                <span className="flex items-center gap-2 bg-accent-purple w-fit p-2 rounded-full">
-                                    <MapPin size={24} /> {weatherData.name}
-                                </span>
-                            </div>
+                <main className="grid grid-rows-2 gap-6">
+                    <section className="grid grid-cols-2 gap-6">
+                        {/* Main Widget */}
+                        <div className="bg-surface rounded-2xl p-6 flex justify-between">
                             <div className="space-y-6">
-                                <div className="space-y-2">
-                                    <span className="text-4xl block font-semibold">
-                                        {day}
-                                    </span>
-                                    <p className="text-lg">
-                                        {formatDate(
-                                            new Date(weatherData.dt * 1000)
-                                        )}
-                                    </p>
-                                </div>
                                 <div>
-                                    <span className="text-6xl block mb-4 font-semibold">
-                                        {weatherData.main.temp.toFixed(0)}°C
+                                    <span className="flex items-center gap-2 bg-accent-purple w-fit p-2 rounded-full">
+                                        <MapPin size={24} /> {weatherData.name}
                                     </span>
-                                    <p className="text-xl capitalize">
-                                        {weatherData.weather[0].description}
-                                    </p>
+                                </div>
+                                <div className="space-y-6">
+                                    <div className="space-y-2">
+                                        <span className="text-4xl block font-semibold">
+                                            {day}
+                                        </span>
+                                        <p className="text-lg">
+                                            {formatDate(
+                                                new Date(weatherData.dt * 1000)
+                                            )}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <span className="text-6xl block mb-4 font-semibold">
+                                            {weatherData.main.temp.toFixed(0)}°C
+                                        </span>
+                                        <p className="text-xl capitalize">
+                                            {weatherData.weather[0].description}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <Image
+                                    src={weatherIcon}
+                                    alt="Weather Icon"
+                                    width={150}
+                                    height={150}
+                                />
+                            </div>
+                        </div>
+
+                        {/* Today Hightlight */}
+                        <div className="bg-surface-light rounded-2xl p-6">
+                            <h2 className="text-2xl font-semibold mb-6">
+                                Today Highlight
+                            </h2>
+                            <div className="grid grid-cols-2 gap-6">
+                                <div className="p-4 min-h-[100px] rounded-xl bg-surface">
+                                    <h3 className="mb-4 text-xl font-bold">Chance of Rain</h3>
+                                    <div className="flex items-center gap-4">
+                                        <Image
+                                            src={"/rain.png"}
+                                            alt="Weather Icon"
+                                            width={80}
+                                            height={80}
+                                        />
+                                        <p className="text-2xl">
+                                            {Number(
+                                                weatherForecast.list[0].pop *
+                                                    100
+                                            ).toFixed(0)}
+                                            %
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="p-4 min-h-[100px] rounded-xl bg-surface">
+                                    <h3 className="mb-4 text-xl font-bold">Cloudiness</h3>
+                                    <div className="flex items-center gap-4">
+                                        <Image
+                                            src={"/cloud.png"}
+                                            alt="Weather Icon"
+                                            width={80}
+                                            height={80}
+                                        />
+                                        <p className="text-2xl">
+                                            {weatherData.clouds.all}%
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="p-4 min-h-[100px] rounded-xl bg-surface">
+                                    <h3 className="mb-4 text-xl font-bold">Wind Speed</h3>
+                                    <div className="flex items-center gap-4">
+                                        <Image
+                                            src={"/wind.png"}
+                                            alt="Weather Icon"
+                                            width={80}
+                                            height={80}
+                                        />
+                                        <p className="text-2xl">
+                                            {weatherData.wind.speed} m/s
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="p-4 min-h-[100px] rounded-xl bg-surface">
+                                    <h3 className="mb-4 text-xl font-bold">Humidity</h3>
+                                    <div className="flex items-center gap-4">
+                                        <Image
+                                            src={"/humidity.png"}
+                                            alt="Weather Icon"
+                                            width={80}
+                                            height={80}
+                                        />
+                                        <p className="text-2xl">
+                                            {weatherData.main.humidity}%
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            <Image
-                                src={"/logo.png"}
-                                alt="Weather Icon"
-                                width={150}
-                                height={150}
-                            />
+                    </section>
+
+                    <section className="grid grid-cols-2 gap-6">
+                        {/* Today / Week */}
+                        <div className="bg-surface rounded-2xl p-6">
+                            <h2>Today / Week</h2>
+                            <p>Cloudy</p>
+                            <p>25°C</p>
                         </div>
-                    </div>
 
-                    {/* Today Hightlight */}
-                    <div className="bg-surface-light rounded-2xl p-6">
-                        <h2>Today Highlight</h2>
-                        <p>{weatherData.weather[0].description}</p>
-                        <p>{weatherData.main.temp}°C</p>
-                    </div>
-                </section>
-
-                <section className="grid grid-cols-2 gap-6">
-                    {/* Today / Week */}
-                    <div className="bg-surface rounded-2xl p-6">
-                        <h2>Today / Week</h2>
-                        <p>Cloudy</p>
-                        <p>25°C</p>
-                    </div>
-
-                    {/* Other Cities */}
-                    <div className="bg-surface-light rounded-2xl p-6">
-                        <h2>Other Cities</h2>
-                        <p>Cloudy</p>
-                        <p>25°C</p>
-                    </div>
-                </section>
-            </main>
+                        {/* Other Cities */}
+                        <div className="bg-surface-light flex flex-col rounded-2xl p-6">
+                            <h2 className="text-2xl font-semibold mb-6">
+                                Other Cities
+                            </h2>
+                            <div className="grid grid-cols-2 flex-1 items-stretch gap-6">
+                                {otherCitiesData.map((city, index) => (
+                                    <div
+                                        key={index}
+                                        className="p-4 min-h-[100px] flex items-center justify-between rounded-xl bg-surface"
+                                    >
+                                        <div>
+                                            <h5 className="text-5xl mb-4 font-semibold">
+                                                {city.main.temp}
+                                                <span className="text-2xl">
+                                                    {" "}
+                                                    °C
+                                                </span>
+                                            </h5>
+                                            <p className="text-lg font-bold">
+                                                {city.name}
+                                            </p>
+                                        </div>
+                                        <Image
+                                            src={getWeatherIcon(
+                                                city.weather[0].icon
+                                            )}
+                                            alt="Weather Icon"
+                                            width={80}
+                                            height={80}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+                </main>
+            </div>
         </div>
     );
 }
