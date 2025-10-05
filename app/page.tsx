@@ -99,15 +99,17 @@ export default async function Home() {
                             <h2 className="text-2xl font-semibold mb-6">
                                 Today Highlight
                             </h2>
-                            <div className="grid grid-cols-2 gap-6">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                                 <div className="p-4 min-h-[100px] rounded-xl bg-surface">
-                                    <h3 className="mb-4 text-xl font-bold">Chance of Rain</h3>
+                                    <h3 className="mb-4 text-xl font-bold">
+                                        Chance of Rain
+                                    </h3>
                                     <div className="flex items-center gap-4">
                                         <Image
                                             src={"/rain.png"}
                                             alt="Weather Icon"
-                                            width={80}
-                                            height={80}
+                                            width={64}
+                                            height={64}
                                         />
                                         <p className="text-2xl">
                                             {Number(
@@ -119,13 +121,15 @@ export default async function Home() {
                                     </div>
                                 </div>
                                 <div className="p-4 min-h-[100px] rounded-xl bg-surface">
-                                    <h3 className="mb-4 text-xl font-bold">Cloudiness</h3>
+                                    <h3 className="mb-4 text-xl font-bold">
+                                        Cloudiness
+                                    </h3>
                                     <div className="flex items-center gap-4">
                                         <Image
                                             src={"/cloud.png"}
                                             alt="Weather Icon"
-                                            width={80}
-                                            height={80}
+                                            width={64}
+                                            height={64}
                                         />
                                         <p className="text-2xl">
                                             {weatherData.clouds.all}%
@@ -133,13 +137,15 @@ export default async function Home() {
                                     </div>
                                 </div>
                                 <div className="p-4 min-h-[100px] rounded-xl bg-surface">
-                                    <h3 className="mb-4 text-xl font-bold">Wind Speed</h3>
-                                    <div className="flex items-center gap-4">
+                                    <h3 className="mb-4 text-xl font-bold">
+                                        Wind Speed
+                                    </h3>
+                                    <div className="flex flex-col sm:flex-row items-center gap-4">
                                         <Image
                                             src={"/wind.png"}
                                             alt="Weather Icon"
-                                            width={80}
-                                            height={80}
+                                            width={64}
+                                            height={64}
                                         />
                                         <p className="text-2xl">
                                             {weatherData.wind.speed} m/s
@@ -147,13 +153,15 @@ export default async function Home() {
                                     </div>
                                 </div>
                                 <div className="p-4 min-h-[100px] rounded-xl bg-surface">
-                                    <h3 className="mb-4 text-xl font-bold">Humidity</h3>
+                                    <h3 className="mb-4 text-xl font-bold">
+                                        Humidity
+                                    </h3>
                                     <div className="flex items-center gap-4">
                                         <Image
                                             src={"/humidity.png"}
                                             alt="Weather Icon"
-                                            width={80}
-                                            height={80}
+                                            width={64}
+                                            height={64}
                                         />
                                         <p className="text-2xl">
                                             {weatherData.main.humidity}%
@@ -164,14 +172,7 @@ export default async function Home() {
                         </div>
                     </section>
 
-                    <section className="grid grid-cols-2 gap-6">
-                        {/* Today / Week */}
-                        <div className="bg-surface rounded-2xl p-6">
-                            <h2>Today / Week</h2>
-                            <p>Cloudy</p>
-                            <p>25°C</p>
-                        </div>
-
+                    <section className="grid gap-6">
                         {/* Other Cities */}
                         <div className="bg-surface-light flex flex-col rounded-2xl p-6">
                             <h2 className="text-2xl font-semibold mb-6">
@@ -181,10 +182,10 @@ export default async function Home() {
                                 {otherCitiesData.map((city, index) => (
                                     <div
                                         key={index}
-                                        className="p-4 min-h-[100px] flex items-center justify-between rounded-xl bg-surface"
+                                        className="p-4 min-h-[100px] flex items-center justify-between gap-y-6 rounded-xl bg-surface"
                                     >
                                         <div>
-                                            <h5 className="text-5xl mb-4 font-semibold">
+                                            <h5 className="text-3xl lg:text-5xl mb-4 font-semibold">
                                                 {city.main.temp}
                                                 <span className="text-2xl">
                                                     {" "}

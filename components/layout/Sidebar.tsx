@@ -1,5 +1,4 @@
 import {
-    Home,
     Settings,
     LogOut,
     LayoutDashboard,
