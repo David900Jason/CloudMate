@@ -13,7 +13,7 @@ const Sidebar = () => {
     return (
         <aside className="h-screen p-4 flex flex-col gap-8 sticky top-0 left-0 bg-surface-light">
             <header>
-                <Image src="/logo.png" alt="Logo" width={64} height={64} />
+                <Image className="hidden sm:block" src="/logo.png" alt="Logo" width={64} height={64} />
             </header>
             <main className="flex-1">
                 <ul className="space-y-3 flex flex-col gap-6 items-center">

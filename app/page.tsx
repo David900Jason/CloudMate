@@ -68,7 +68,7 @@ export default async function Home({
                 </header>
 
                 <main className="grid grid-rows-2 gap-6">
-                    <section className="grid grid-cols-2 gap-6">
+                    <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         {/* Main Widget */}
                         <div className="bg-surface rounded-2xl p-6 flex justify-between">
                             <div className="space-y-6">
@@ -114,8 +114,8 @@ export default async function Home({
                                 Today Highlight
                             </h2>
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                                <div className="p-4 min-h-[100px] rounded-xl bg-surface">
-                                    <h3 className="mb-4 text-xl font-bold">
+                                <div className="p-4 gap-4 flex flex-col-reverse min-h-[100px] rounded-xl bg-surface">
+                                    <h3 className="text-xl font-bold">
                                         Chance of Rain
                                     </h3>
                                     <div className="flex items-center gap-4">
@@ -134,8 +134,8 @@ export default async function Home({
                                         </p>
                                     </div>
                                 </div>
-                                <div className="p-4 min-h-[100px] rounded-xl bg-surface">
-                                    <h3 className="mb-4 text-xl font-bold">
+                                <div className="p-4 gap-4 flex flex-col-reverse min-h-[100px] rounded-xl bg-surface">
+                                    <h3 className="text-xl font-bold">
                                         Cloudiness
                                     </h3>
                                     <div className="flex items-center gap-4">
@@ -150,8 +150,8 @@ export default async function Home({
                                         </p>
                                     </div>
                                 </div>
-                                <div className="p-4 min-h-[100px] rounded-xl bg-surface">
-                                    <h3 className="mb-4 text-xl font-bold">
+                                <div className="p-4 gap-4 flex flex-col-reverse min-h-[100px] rounded-xl bg-surface">
+                                    <h3 className="text-xl font-bold">
                                         Wind Speed
                                     </h3>
                                     <div className="flex flex-col sm:flex-row items-center gap-4">
@@ -166,8 +166,8 @@ export default async function Home({
                                         </p>
                                     </div>
                                 </div>
-                                <div className="p-4 min-h-[100px] rounded-xl bg-surface">
-                                    <h3 className="mb-4 text-xl font-bold">
+                                <div className="p-4 gap-4 flex flex-col-reverse min-h-[100px] rounded-xl bg-surface">
+                                    <h3 className="text-xl font-bold">
                                         Humidity
                                     </h3>
                                     <div className="flex items-center gap-4">
@@ -192,11 +192,11 @@ export default async function Home({
                             <h2 className="text-2xl font-semibold mb-6">
                                 Other Cities
                             </h2>
-                            <div className="grid grid-cols-2 flex-1 items-stretch gap-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 flex-1 gap-6">
                                 {otherCitiesData.map((city, index) => (
                                     <div
                                         key={index}
-                                        className="p-4 min-h-[100px] flex items-center justify-between gap-y-6 rounded-xl bg-surface"
+                                        className="p-4 flex items-center justify-between gap-y-6 rounded-xl bg-surface"
                                     >
                                         <div>
                                             <h5 className="text-3xl lg:text-5xl mb-4 font-semibold">

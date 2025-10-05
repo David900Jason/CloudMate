@@ -3,7 +3,7 @@ import WeatherSearchBar from "../ui/WeatherSearchBar";
 
 const Navbar = ({ searchTerm }: { searchTerm: string }) => {
     return (
-        <nav className="flex items-center p-4 justify-between">
+        <nav className="flex gap-8 flex-col-reverse sm:flex-row items-center p-4 justify-between">
             {/* Search bar */}
             <div className="flex-1/2">
                 <WeatherSearchBar searchTerm={searchTerm} />
