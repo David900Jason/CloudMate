@@ -1,12 +1,12 @@
 import Image from "next/image";
 import WeatherSearchBar from "../ui/WeatherSearchBar";
 
-const Navbar = () => {
+const Navbar = ({ searchTerm }: { searchTerm: string }) => {
     return (
         <nav className="flex items-center p-4 justify-between">
             {/* Search bar */}
             <div className="flex-1/2">
-                <WeatherSearchBar />
+                <WeatherSearchBar searchTerm={searchTerm} />
             </div>
 
             {/* Logo */}

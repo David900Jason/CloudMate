@@ -18,10 +18,26 @@ const days = [
     "Saturday",
 ];
 
-export default async function Home() {
-    const weatherData = await getWeatherByCity("Cairo");
-    const weatherIcon = getWeatherIcon(weatherData.weather[0].icon);
-    const weatherForecast = await getWeatherForecast("Cairo");
+export default async function Home({
+    searchParams,
+}: {
+    searchParams: Promise<{ city: string }>;
+}) {
+    const city = (await searchParams).city || "Cairo";
+
+    const weatherData = await getWeatherByCity(city || "Cairo").catch(
+        (error) => {
+            console.error("Weather fetch failed:", error);
+            return null;
+        }
+    );
+    const weatherIcon = getWeatherIcon(weatherData?.weather[0].icon);
+    const weatherForecast = await getWeatherForecast(city || "Cairo").catch(
+        (error) => {
+            console.error("Weather forecast fetch failed:", error);
+            return null;
+        }
+    );
 
     const otherCitiesData = await Promise.all([
         getWeatherByCity("New York"),
@@ -29,8 +45,6 @@ export default async function Home() {
         getWeatherByCity("Tokyo"),
         getWeatherByCity("Sydney"),
     ]);
-
-    console.log(otherCitiesData);
 
     const day = days[new Date(weatherData.dt * 1000).getDay()];
 
@@ -50,7 +64,7 @@ export default async function Home() {
             <div className="p-4 grid gap-4 flex-1">
                 {/* Search Bar */}
                 <header className="bg-background">
-                    <Navbar />
+                    <Navbar searchTerm={(await searchParams).city} />
                 </header>
 
                 <main className="grid grid-rows-2 gap-6">
